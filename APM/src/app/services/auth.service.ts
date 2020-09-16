@@ -1,0 +1,61 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import * as auth0 from 'auth0-js';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  auth0 = new auth0.WebAuth({
+    clientID: '2LnQOpLSecBbDM3sEGGt5QaSvEGwwep6',
+    domain: 'dev-ab54g1pc.auth0.com',
+    redirectUri: 'http://localhost:4200/callback',
+    responseType: 'token id_token',
+  });
+
+  constructor(public router: Router) {}
+
+  public login(): void {
+    this.auth0.authorize();
+  }
+
+  public handleAuthentication(): void {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = '';
+        this.setSession(authResult);
+        this.router.navigate(['/products']);
+      } else if (err) {
+        this.router.navigate(['/login']);
+        console.log(err);
+      }
+    });
+  }
+
+  private setSession(authResult): void {
+    // Set the time that the access token will expire at
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
+  }
+
+  public logout(): void {
+    // Remove tokens and expiry time from localStorage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    // Go back to the home route
+    this.router.navigate(['/welcome']);
+  }
+
+  public isAuthenticated(): boolean {
+    // Check whether the current time is past the
+    // access token's expiry time
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
+  }
+
+
+}
