@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@JsonIgnoreProperties({"handler","hibernateLazyInitializer","ignoreUnknown = true"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonAutoDetect
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product {
