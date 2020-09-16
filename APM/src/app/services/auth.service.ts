@@ -9,8 +9,8 @@ export class AuthService {
 
   // Rocket Product Management App
   auth0 = new auth0.WebAuth({
-    clientID: '2LnQOpLSecBbDM3sEGGt5QaSvEGwwep6',
-    domain: 'dev-ab54g1pc.auth0.com',
+    clientID: 'XXXX',
+    domain: 'XXXX',
     redirectUri: 'http://localhost:4200/callback',
     responseType: 'token id_token',
   });
