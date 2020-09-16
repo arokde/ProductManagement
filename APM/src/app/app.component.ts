@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'pm-root',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
             <ul class='nav nav-pills'>
               <li><a class='nav-link' [routerLink]="['/login']">Login</a></li>
               <li><a class='nav-link' [routerLink]="['/welcome']">Home</a></li>
-              <li><a class='nav-link' [routerLink]="['/products']">Product List</a></li>
+              <li *ngIf='authService.isAuthenticated()'><a class='nav-link' [routerLink]="['/products']">Product List</a></li>
               <li><a class='nav-link' [routerLink]="['/logout']">Log Out</a></li>
             </ul>
             </nav>
@@ -19,4 +20,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   pageTitle = 'Rocket Product Management';
+
+  constructor(public authService: AuthService) {
+
+  }
 }

@@ -31,3 +31,4 @@ INSERT INTO product (id, product_name,product_code,release_date,description,pric
 
 INSERT INTO hibernate_sequence (next_val) VALUES (4);
 
+

@@ -7,6 +7,7 @@ import * as auth0 from 'auth0-js';
 })
 export class AuthService {
 
+  // Rocket Product Management App
   auth0 = new auth0.WebAuth({
     clientID: '2LnQOpLSecBbDM3sEGGt5QaSvEGwwep6',
     domain: 'dev-ab54g1pc.auth0.com',
@@ -14,7 +15,7 @@ export class AuthService {
     responseType: 'token id_token',
   });
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) { }
 
   public login(): void {
     this.auth0.authorize();
