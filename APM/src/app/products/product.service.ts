@@ -9,8 +9,6 @@ import { IProduct } from './product';
 })
 export class ProductService {
 
-  //private productUrl = 'api/products/products.json';
-
   private productUrl = '/server/api/v1/products';
 
   private products: IProduct[];
